@@ -4,4 +4,4 @@ const categorySchema = joi.object({
   name: joi.string().trim().min(1).required(),
 });
 
-export default categorySchema;
+export {categorySchema};
