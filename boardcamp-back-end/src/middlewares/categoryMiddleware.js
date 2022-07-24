@@ -12,8 +12,8 @@ async function checkNameConflicts(req, res, next) {
   const name = req.body.name[0].toUpperCase() + req.body.name.slice(1).toLowerCase();
   const categoryExists = await connection.query(`
     SELECT * FROM categories 
-    WHERE categories.name = $1
-    `, [name]
+    WHERE categories.name = $1;`,
+    [name]
   );
   
   if(categoryExists.rows.length > 0){
