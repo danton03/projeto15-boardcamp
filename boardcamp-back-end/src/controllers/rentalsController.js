@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import 'dayjs/locale/pt-br.js';
 import connection from "../database/database.js";
 
 export async function listRentals(req, res) {
@@ -100,7 +101,7 @@ export async function finishRental(req, res) {
       [rental.gameId]
     );
 
-    const date = dayjs();
+    const date = dayjs().locale('pt-br');
     const rentDate = dayjs(rental.rentDate);
     let delay = date.diff(rentDate, "day") - rental.daysRented;
     if (delay < 0) {
