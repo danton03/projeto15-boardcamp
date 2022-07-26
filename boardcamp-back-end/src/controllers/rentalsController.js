@@ -5,20 +5,19 @@ import connection from "../database/database.js";
 export async function listRentals(req, res) {
   try {
     const { customerId, gameId } = req.query;
-    const query = `SELECT rentals.*, customers.name AS "customerName", 
+    let query = `SELECT rentals.*, customers.name AS "customerName", 
     games.name AS "gameName", games."categoryId",
     categories.name AS "categoryName"
     FROM rentals 
     INNER JOIN customers ON customers.id = rentals."customerId" 
     INNER JOIN games ON games.id = rentals."gameId" 
     INNER JOIN categories ON games."categoryId" = categories.id
-    ORDER BY id ASC
     `;
     let rentalsList = [];
     if (customerId) {
-      const filterByCustomer = query + 'WHERE "customerId" = $1;';
+      query += `WHERE "customerId" = $1;`;
       const { rows: rentals } = await connection.query(
-        filterByCustomer, 
+        query, 
         [customerId]
       );
 
